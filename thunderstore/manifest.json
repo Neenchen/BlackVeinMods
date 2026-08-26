@@ -1,0 +1,12 @@
+{
+  "name": "BlackVeinMods",
+  "version_number": "0.1.0",
+  "website_url": "",
+  "description": "Standalone V Rising server mods.",
+  "dependencies": [
+    "BepInEx-BepInExPack_V_Rising-1.733.2",
+    "deca-VampireCommandFramework-0.11.0",
+    "cheesasaurus-Bloodpebble-1.4.2",
+    "cheesasaurus-HookDOTS_API-1.1.1"
+  ]
+}

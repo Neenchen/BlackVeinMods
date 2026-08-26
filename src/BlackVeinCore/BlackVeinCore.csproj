@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>BlackVeinCore</AssemblyName>
+    <RootNamespace>BlackVeinCore</RootNamespace>
+    <Version>0.1.0</Version>
+    <Authors>BlackVein</Authors>
+    <Description>Shared core library and runtime hooks for BlackVein V Rising mods.</Description>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <VRisingServerDir Condition="'$(VRisingServerDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\VRisingDedicatedServer</VRisingServerDir>
+    <BloodpebblePluginsDir>$(VRisingServerDir)\BepInEx\BloodpebblePlugins</BloodpebblePluginsDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.21" GeneratePathProperty="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(PkgLiteDB)\lib\netstandard2.0\LiteDB.dll" LogicalName="BlackVeinCore.Dependencies.LiteDB.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony" HintPath="$(VRisingServerDir)\BepInEx\core\0Harmony.dll" Private="false" />
+    <Reference Include="BepInEx.Core" HintPath="$(VRisingServerDir)\BepInEx\core\BepInEx.Core.dll" Private="false" />
+    <Reference Include="BepInEx.Unity.Common" HintPath="$(VRisingServerDir)\BepInEx\core\BepInEx.Unity.Common.dll" Private="false" />
+    <Reference Include="BepInEx.Unity.IL2CPP" HintPath="$(VRisingServerDir)\BepInEx\core\BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="Il2CppInterop.Runtime" HintPath="$(VRisingServerDir)\BepInEx\core\Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="Il2Cppmscorlib" HintPath="$(VRisingServerDir)\BepInEx\interop\Il2Cppmscorlib.dll" Private="false" />
+    <Reference Include="Il2CppSystem" HintPath="$(VRisingServerDir)\BepInEx\interop\Il2CppSystem.dll" Private="false" />
+    <Reference Include="ProjectM" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.dll" Private="false" />
+    <Reference Include="ProjectM.CodeGeneration" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.CodeGeneration.dll" Private="false" />
+    <Reference Include="ProjectM.Gameplay.Scripting" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.Gameplay.Scripting.dll" Private="false" />
+    <Reference Include="ProjectM.Gameplay.Systems" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.Gameplay.Systems.dll" Private="false" />
+    <Reference Include="ProjectM.HUD" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.HUD.dll" Private="false" />
+    <Reference Include="ProjectM.Presentation.Systems" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.Presentation.Systems.dll" Private="false" />
+    <Reference Include="ProjectM.Shared" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.Shared.dll" Private="false" />
+    <Reference Include="ProjectM.Shared.Systems" HintPath="$(VRisingServerDir)\BepInEx\interop\ProjectM.Shared.Systems.dll" Private="false" />
+    <Reference Include="Stunlock.Core" HintPath="$(VRisingServerDir)\BepInEx\interop\Stunlock.Core.dll" Private="false" />
+    <Reference Include="Stunlock.Network" HintPath="$(VRisingServerDir)\BepInEx\interop\Stunlock.Network.dll" Private="false" />
+    <Reference Include="Unity.Collections" HintPath="$(VRisingServerDir)\BepInEx\interop\Unity.Collections.dll" Private="false" />
+    <Reference Include="Unity.Entities" HintPath="$(VRisingServerDir)\BepInEx\interop\Unity.Entities.dll" Private="false" />
+    <Reference Include="Unity.Mathematics" HintPath="$(VRisingServerDir)\BepInEx\interop\Unity.Mathematics.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(VRisingServerDir)\BepInEx\interop\UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(VRisingServerDir)\BepInEx\interop\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="VivoxUnity" HintPath="$(VRisingServerDir)\BepInEx\interop\VivoxUnity.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="CopyToBloodpebble" AfterTargets="Build">
+    <MakeDir Directories="$(BloodpebblePluginsDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(BloodpebblePluginsDir)" SkipUnchangedFiles="false" />
+  </Target>
+
+</Project>
